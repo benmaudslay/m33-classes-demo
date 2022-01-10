@@ -58,14 +58,38 @@
 // console.log(tracyTaste)
 // console.log(danielTaste)
 
-class Dog {
-  constructor(name, age) {
-    this.name = name
-    this.age = age
+class Pet {
+  constructor(fname, sname, dob) {
+    this._fname = fname
+    this._sname = sname
+    this.dob = dob
+  }
+
+  get name() {
+    // etc:... profanityFilter(this.fname)
+    return `${this._fname} ${this._sname}`
+  }
+
+  get age() {
+    let date = new Date()
+    let age = date.getFullYear() - this.dob
+    return age
   }
 
   hunger = 0
   thirst = 0
+
+  birthday() {
+    console.log(`Happy birthday ${this.name}!`)
+    this.age++
+  }
+}
+
+class Dog extends Pet {
+  constructor(fname, sname, dob, bonesBuried) {
+    super(fname, sname, dob)
+    this.bones = bonesBuried
+  }
   energy = 10
 
   play() {
@@ -74,8 +98,27 @@ class Dog {
   }
 }
 
-let fido = new Dog("Fido", 2)
+class Cat extends Pet {
+  constructor(fname, sname, dob) {
+    super(fname, sname, dob)
+  }
+  energy = 6
+  purrs = 0
 
-console.log(fido)
-fido.play()
-console.log(fido)
+  sleep() {
+    console.log(`${this.name} is having a great nap! Purr!`)
+    this.energy++
+    this.purrs++
+  }
+}
+
+let fido = new Dog("Fido", "Wolfen", 2020, 8)
+let thumper = new Dog("Thumper", "Wolfen", 2021, 3)
+let mittens = new Cat("Mittens", "Wolfen-Cat", 2021)
+
+console.log(thumper._fname)
+// console.log(fido)
+// console.log(mittens)
+// // fido.play()
+// fido.birthday()
+// console.log(fido)
